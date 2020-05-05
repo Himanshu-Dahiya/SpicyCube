@@ -1,20 +1,23 @@
 var mongoose=require('mongoose');
 var Schema=mongoose.Schema;
+var passportLocalMongoose=require('passport-local-mongoose');
 
 var User= new Schema({
-    username:{
+    firstname:{
         type:String,
-        required:true,
-        unique:true
+        default:''
     },
-    password:  {
-        type: String,
-        required: true
+    lastname:{
+        type:String,
+        default:''
     },
+    facebookId: String,
     admin:   {
         type: Boolean,
         default: false
     }
 });
+
+User.plugin(passportLocalMongoose);   //auto add username and hashed password to user schema
 
 module.exports=mongoose.model('User',User);
